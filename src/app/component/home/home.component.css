@@ -1,0 +1,8 @@
+.container {
+    padding-top: 56px !important;
+  }
+.pricetag{
+  background: goldenrod;
+  padding: 5px;
+  border-radius: 5px;
+}

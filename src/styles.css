@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+.custombtn{
+    background-color: black !important;
+    border: 1px solid black !important;
+    color: white !important;
+}
+@media only screen and (max-width: 460px) {
+.contentBody{
+    margin-top: 40% !important;
+}
+}
+@media only screen and (min-width: 461px) {
+    .contentBody{
+        margin-top: 10% !important;
+    }
+    }
+.form-control{
+    color: goldenrod !important;
+    border: 1px solid goldenrod !important;
+    /*box-shadow: 0 1px 1px goldenrod inset, 0 0 8px goldenrod !important;*/
+}
+.form-control:focus{
+    box-shadow: 0 1px 1px goldenrod inset, 0 0 8px goldenrod !important;
+}

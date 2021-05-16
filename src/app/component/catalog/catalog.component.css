@@ -1,0 +1,11 @@
+label{
+    font-weight:500 !important;
+}
+.pricetag{
+    background: goldenrod;
+    padding: 5px;
+    border-radius: 5px;
+  }
+.card-body:hover{
+    background: bisque;
+}

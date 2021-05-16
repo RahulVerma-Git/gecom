@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Ecom</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+  <app-root></app-root>
+  <div class="col-xs-12 col-md-6 text-center">
+    <div class="col-xs-12">
+    <video id="video" width="640" height="480" autoplay></video>
+    </div>
+    <div class="col-xs-12">
+    <button id="snap" onclick="capture()" class="btn btn-primary btn-lg"><i class="fa fa-camera"></i></button>
+    </div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+    <div class="col-xs-12">
+    <canvas id="canvas" width="640" height="480"></canvas>
+    </div>
+    <div>
+    <button id="prevImage" onclick="prevImage()" class="btn btn-primary btn-lg" style="float:left"><i class="fa fa-angle-double-left">&nbsp;&nbsp;Prev</i></button>
+    <label id="imageName"></label>
+    <button id="nextImage" onclick="nextImage()" class="btn btn-primary btn-lg"><i class="fa fa-angle-double-right">&nbsp;&nbsp;Next</i></button>
+    </div>
+    </div>
+</body>
+</html>
+<script>
+  var capturedImageList = [];
+  var counterIndex=0;
+  var videoFrame = document.getElementById("video");
+  if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+  navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}}).then(function(stream){
+  videoFrame.srcObject = stream;
+  video.play();
+  });
+  }
+  var canvas = document.getElementById("canvas");
+  var canvasContext = canvas.getContext("2d");
+  function capture(){
+  capturedImageList.push(video);
+  counterIndex  = capturedImageList.length-1;
+  canvasContext.drawImage(video,0,0,640,480);
+  
+  var link = document.createElement('a');
+    link.download = 'Image'+(counterIndex+1)+'.png';
+    link.href = canvas.toDataURL();
+    link.click();
+    
+  if(capturedImageList.length>1){
+  document.getElementById("prevImage").style.display="block";
+  }
+  document.getElementById("nextImage").style.display="block";
+  document.getElementById("imageName").innerHTML="Image"+(counterIndex+1)+".png";
+  console.log(capturedImageList);
+  }
+  function prevImage(){
+  counterIndex--;
+  if(counterIndex>=0){
+  canvasContext.drawImage(capturedImageList[counterIndex],0,0,640,480);
+  }
+  else{
+  document.getElementById("prevImage").style.display="none";
+  }
+  if(counterIndex<capturedImageList.length){
+  document.getElementById("nextImage").style.display="block";
+  }
+  document.getElementById("imageName").innerHTML="Image"+(counterIndex+1)+".png";
+  }
+  function nextImage(){
+  counterIndex++;
+  if(counterIndex<capturedImageList.length){
+  canvasContext.drawImage(capturedImageList[counterIndex],0,0,640,480);
+  }
+  else{
+  document.getElementById("nextImage").style.display="none";
+  }
+  if(counterIndex>=0){
+  document.getElementById("prevImage").style.display="block";
+  }
+  document.getElementById("imageName").innerHTML="Image"+(counterIndex+1)+".png"; 
+  }
+  </script>
